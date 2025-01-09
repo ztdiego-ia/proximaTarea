@@ -13,31 +13,28 @@ public class LogicaTarea {
         ventana.setLocationRelativeTo(null);
         
         //añadir tareas predefinidas
-        todoTarea.anadirTareaRep("pasear al perro", false);
-        todoTarea.anadirTareaRep("barrer la sala", false);
-        todoTarea.anadirTareaRep("tomar desayuno", true);
-        todoTarea.anadirTareaRep("comprar 5kg de carne", true);
-        todoTarea.anadirTareaRep("pedir una cita para el dentista", false);
+        todoTareas.anadirTareaRep(new TareaFormato("pasear al perro", false));
+        todoTareas.anadirTareaRep(new TareaFormato("barrer la sala", false));
+        todoTareas.anadirTareaRep(new TareaFormato("tomar desayuno", true));
+        todoTareas.anadirTareaRep(new TareaFormato("comprar 5kg de carne", true));
+        todoTareas.anadirTareaRep(new TareaFormato("pedir una cita para el dentista", false));
         
     }
     
     //crear repositorio segun el modelo
-    private static RepositorioTarea todoTarea=new RepositorioTarea();
+    private static final RepositorioTarea todoTareas=new RepositorioTarea();
     
-    public void anadirTarea(String tarea, boolean stt){
+    //añade un objeto TareaFormato, a partir de un String y un boolean, a todoTarea
+    public static void anadirTarea(String tarea, boolean stt){
         TareaFormato nTarea=new TareaFormato(tarea, stt);
-        //todoTarea.anadirTareaRep(nTarea);
-        //actualizarVista();
+        todoTareas.anadirTareaRep(nTarea);
     }
-    public void borrarTarea(int i){
-        todoTarea.eliminarTareaRep(i);
-        //actualizarVista();
-    }
+    
     public static ArrayList<String> actualizarVista(){
         ArrayList<String> texto=new ArrayList<>();
-        for (int i = 0; i < todoTarea.listarTareaRep().size(); i++) {
-            String tarea=todoTarea.listarTareaRep().get(i).getTarea();
-            boolean status=todoTarea.listarTareaRep().get(i).isStatus();
+        for (int i = 0; i < todoTareas.listarTareaRep().size(); i++) {
+            String tarea=todoTareas.listarTareaRep().get(i).getTarea();
+            boolean status=todoTareas.listarTareaRep().get(i).isStatus();
             texto.add(status?tarea+" - completada":tarea+" - pendiente");
         }
         return texto;

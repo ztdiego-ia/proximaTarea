@@ -10,9 +10,8 @@ public class RepositorioTarea {
         tareaRep=new ArrayList<>();
         tareaHistorial=new ArrayList<>();
     }
-    public void anadirTareaRep(String tarea, boolean stt){
-        TareaFormato nEntrada=new TareaFormato(tarea, stt);
-        tareaRep.add(nEntrada);
+    public void anadirTareaRep(TareaFormato tarea){
+        tareaRep.add(tarea);
     }
     public void anadirTareaHistorial(TareaFormato tarea){
         tareaHistorial.add(tarea);

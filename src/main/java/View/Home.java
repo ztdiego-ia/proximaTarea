@@ -1,6 +1,7 @@
 package View;
 import Controller.LogicaTarea;
 import java.util.ArrayList;
+import javax.swing.JPanel;
 public class Home extends javax.swing.JFrame {
 
     /**
@@ -8,8 +9,8 @@ public class Home extends javax.swing.JFrame {
      */
     public Home() {
         initComponents();
+        verPanel(new PnlAnadir());
     }
-    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -21,49 +22,26 @@ public class Home extends javax.swing.JFrame {
     private void initComponents() {
 
         jpTodo = new javax.swing.JPanel();
-        btnListar = new javax.swing.JButton();
         lbTitulo = new javax.swing.JLabel();
-        btnAñadir = new javax.swing.JButton();
+        btnAnadir = new javax.swing.JButton();
         btnHistorial = new javax.swing.JButton();
-        pnlPanelCentral = new javax.swing.JPanel();
-        pnlAñadir = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        btnAddTarea = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        txtVistaTarea = new javax.swing.JTextArea();
-        txtIndice = new javax.swing.JTextField();
-        btnBorrarTarea = new javax.swing.JButton();
-        txtNuevaTarea = new javax.swing.JTextField();
-        pnlListar = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tbTareaRep = new javax.swing.JTable();
-        btnBorrar = new javax.swing.JButton();
-        pnlHistorial = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tbTareaHistorial = new javax.swing.JTable();
-        btnBorrarTodo = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        pnlContenido = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jpTodo.setPreferredSize(new java.awt.Dimension(470, 518));
 
-        btnListar.setText("Listar");
-        btnListar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnListarActionPerformed(evt);
-            }
-        });
-
         lbTitulo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lbTitulo.setText("Proxima Tarea");
         lbTitulo.setName(""); // NOI18N
 
-        btnAñadir.setText("Añadir");
-        btnAñadir.addActionListener(new java.awt.event.ActionListener() {
+        btnAnadir.setText("Añadir");
+        btnAnadir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAñadirActionPerformed(evt);
+                btnAnadirActionPerformed(evt);
             }
         });
 
@@ -74,181 +52,22 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        pnlPanelCentral.setToolTipText("");
-        pnlPanelCentral.setName("pnlPanelCentral"); // NOI18N
-        pnlPanelCentral.setLayout(new java.awt.CardLayout());
+        jLabel3.setText("→");
 
-        jLabel2.setText("Nueva Tarea");
+        jLabel5.setText("→");
 
-        btnAddTarea.setText("+");
-        btnAddTarea.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddTareaActionPerformed(evt);
-            }
-        });
+        pnlContenido.setPreferredSize(new java.awt.Dimension(330, 400));
 
-        txtVistaTarea.setColumns(20);
-        txtVistaTarea.setRows(5);
-        jScrollPane3.setViewportView(txtVistaTarea);
-
-        btnBorrarTarea.setText("-");
-
-        javax.swing.GroupLayout pnlAñadirLayout = new javax.swing.GroupLayout(pnlAñadir);
-        pnlAñadir.setLayout(pnlAñadirLayout);
-        pnlAñadirLayout.setHorizontalGroup(
-            pnlAñadirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlAñadirLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(pnlAñadirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlAñadirLayout.createSequentialGroup()
-                        .addComponent(txtIndice, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBorrarTarea)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(pnlAñadirLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addContainerGap(271, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAñadirLayout.createSequentialGroup()
-                        .addGroup(pnlAñadirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3)
-                            .addComponent(txtNuevaTarea))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAddTarea)
-                        .addGap(29, 29, 29))))
+        javax.swing.GroupLayout pnlContenidoLayout = new javax.swing.GroupLayout(pnlContenido);
+        pnlContenido.setLayout(pnlContenidoLayout);
+        pnlContenidoLayout.setHorizontalGroup(
+            pnlContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 330, Short.MAX_VALUE)
         );
-        pnlAñadirLayout.setVerticalGroup(
-            pnlAñadirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlAñadirLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlAñadirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAddTarea)
-                    .addComponent(txtNuevaTarea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlAñadirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtIndice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBorrarTarea))
-                .addGap(27, 27, 27)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(125, Short.MAX_VALUE))
+        pnlContenidoLayout.setVerticalGroup(
+            pnlContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
-
-        pnlPanelCentral.add(pnlAñadir, "card2");
-
-        jLabel1.setText("Tareas Pendiantes:");
-
-        tbTareaRep.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Tarea", "Status"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(tbTareaRep);
-        if (tbTareaRep.getColumnModel().getColumnCount() > 0) {
-            tbTareaRep.getColumnModel().getColumn(0).setResizable(false);
-        }
-
-        btnBorrar.setText("Borrar");
-
-        javax.swing.GroupLayout pnlListarLayout = new javax.swing.GroupLayout(pnlListar);
-        pnlListar.setLayout(pnlListarLayout);
-        pnlListarLayout.setHorizontalGroup(
-            pnlListarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlListarLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(pnlListarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnBorrar)
-                    .addGroup(pnlListarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1)))
-                .addContainerGap(13, Short.MAX_VALUE))
-        );
-        pnlListarLayout.setVerticalGroup(
-            pnlListarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlListarLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnBorrar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        pnlPanelCentral.add(pnlListar, "card3");
-
-        tbTareaHistorial.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Tarea", "Status"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane2.setViewportView(tbTareaHistorial);
-
-        btnBorrarTodo.setText("borrar todo");
-
-        javax.swing.GroupLayout pnlHistorialLayout = new javax.swing.GroupLayout(pnlHistorial);
-        pnlHistorial.setLayout(pnlHistorialLayout);
-        pnlHistorialLayout.setHorizontalGroup(
-            pnlHistorialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlHistorialLayout.createSequentialGroup()
-                .addContainerGap(243, Short.MAX_VALUE)
-                .addComponent(btnBorrarTodo)
-                .addGap(26, 26, 26))
-            .addGroup(pnlHistorialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pnlHistorialLayout.createSequentialGroup()
-                    .addGap(28, 28, 28)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(23, Short.MAX_VALUE)))
-        );
-        pnlHistorialLayout.setVerticalGroup(
-            pnlHistorialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlHistorialLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(btnBorrarTodo)
-                .addContainerGap(412, Short.MAX_VALUE))
-            .addGroup(pnlHistorialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pnlHistorialLayout.createSequentialGroup()
-                    .addGap(45, 45, 45)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
-                    .addContainerGap()))
-        );
-
-        pnlPanelCentral.add(pnlHistorial, "card4");
 
         javax.swing.GroupLayout jpTodoLayout = new javax.swing.GroupLayout(jpTodo);
         jpTodo.setLayout(jpTodoLayout);
@@ -257,16 +76,22 @@ public class Home extends javax.swing.JFrame {
             .addGroup(jpTodoLayout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addGroup(jpTodoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAñadir, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnHistorial)
-                    .addComponent(btnListar))
-                .addContainerGap(307, Short.MAX_VALUE))
-            .addGroup(jpTodoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpTodoLayout.createSequentialGroup()
-                    .addContainerGap(98, Short.MAX_VALUE)
-                    .addComponent(pnlPanelCentral, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(13, Short.MAX_VALUE)))
+                    .addGroup(jpTodoLayout.createSequentialGroup()
+                        .addComponent(lbTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jpTodoLayout.createSequentialGroup()
+                        .addGroup(jpTodoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jpTodoLayout.createSequentialGroup()
+                                .addComponent(btnAnadir, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel3))
+                            .addGroup(jpTodoLayout.createSequentialGroup()
+                                .addComponent(btnHistorial)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel5)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pnlContenido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 26, Short.MAX_VALUE))))
         );
         jpTodoLayout.setVerticalGroup(
             jpTodoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -274,17 +99,17 @@ public class Home extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addComponent(lbTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnAñadir)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnListar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnHistorial)
-                .addContainerGap(335, Short.MAX_VALUE))
-            .addGroup(jpTodoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpTodoLayout.createSequentialGroup()
-                    .addContainerGap(56, Short.MAX_VALUE)
-                    .addComponent(pnlPanelCentral, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(15, Short.MAX_VALUE)))
+                .addGroup(jpTodoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpTodoLayout.createSequentialGroup()
+                        .addGroup(jpTodoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnAnadir)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jpTodoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnHistorial)
+                            .addComponent(jLabel5)))
+                    .addComponent(pnlContenido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         getContentPane().add(jpTodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 470, 520));
@@ -294,58 +119,49 @@ public class Home extends javax.swing.JFrame {
     
     private ArrayList<String> tareas=new ArrayList<>();
     
-    private void btnAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirActionPerformed
+    //metodo para ver los paneles
+    private void verPanel(JPanel panel){
+        //configurar panel
+        panel.setSize(330,400);
+        panel.setLocation(0, 0);
         
-    }//GEN-LAST:event_btnAñadirActionPerformed
-
-    private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
-        
-    }//GEN-LAST:event_btnListarActionPerformed
-
-    private void btnHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnHistorialActionPerformed
-    
+        //configurar pnlContenido
+        pnlContenido.removeAll();
+        pnlContenido.add(panel);
+        pnlContenido.validate();
+        pnlContenido.repaint();
+    }
     public void actualizarVista(){
         tareas=LogicaTarea.actualizarVista();
-        txtVistaTarea.setText("");
+        //txtVistaTarea.setText(null);
         for (String t : tareas) {
-            txtVistaTarea.append(t+"\n");
+            //txtVistaTarea.append(t+"\n");
         }
     }
+    private void anadirT(){
+        
+    }
     
-    private void btnAddTareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddTareaActionPerformed
-        actualizarVista();
-    }//GEN-LAST:event_btnAddTareaActionPerformed
+    private void btnAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnadirActionPerformed
+        verPanel(new PnlAnadir());
+    }//GEN-LAST:event_btnAnadirActionPerformed
 
+    private void btnHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialActionPerformed
+        verPanel(new PnlHistorial());
+    }//GEN-LAST:event_btnHistorialActionPerformed
+           
     /**
      * @param args the command line arguments
      */
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddTarea;
-    private javax.swing.JButton btnAñadir;
-    private javax.swing.JButton btnBorrar;
-    private javax.swing.JButton btnBorrarTarea;
-    private javax.swing.JButton btnBorrarTodo;
+    private javax.swing.JButton btnAnadir;
     private javax.swing.JButton btnHistorial;
-    private javax.swing.JButton btnListar;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jpTodo;
     private javax.swing.JLabel lbTitulo;
-    private javax.swing.JPanel pnlAñadir;
-    private javax.swing.JPanel pnlHistorial;
-    private javax.swing.JPanel pnlListar;
-    private javax.swing.JPanel pnlPanelCentral;
-    private javax.swing.JTable tbTareaHistorial;
-    private javax.swing.JTable tbTareaRep;
-    private javax.swing.JTextField txtIndice;
-    private javax.swing.JTextField txtNuevaTarea;
-    private javax.swing.JTextArea txtVistaTarea;
+    private javax.swing.JPanel pnlContenido;
     // End of variables declaration//GEN-END:variables
 }
