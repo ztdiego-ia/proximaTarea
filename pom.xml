@@ -29,6 +29,6 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>23</maven.compiler.release>
-        <exec.mainClass>ProximaTarea</exec.mainClass>
+        <exec.mainClass>ConsoleVersion</exec.mainClass>
     </properties>
 </project>
