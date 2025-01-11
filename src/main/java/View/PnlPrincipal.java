@@ -1,20 +1,19 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package View;
 
-/**
- *
- * @author Diego
- */
-public class PnlAnadir extends javax.swing.JPanel {
+import Controller.LogicaTarea;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
+public class PnlPrincipal extends javax.swing.JPanel {
 
     /**
      * Creates new form PnlAnadir
      */
-    public PnlAnadir() {
+    public PnlPrincipal() {
         initComponents();
+        configurarTabla();
+        verTarea();
     }
 
     /**
@@ -40,6 +39,11 @@ public class PnlAnadir extends javax.swing.JPanel {
         add(txtTarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 260, -1));
 
         btnAnadir.setText("...");
+        btnAnadir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnadirActionPerformed(evt);
+            }
+        });
         add(btnAnadir, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 30, -1));
 
         tblLista.setModel(new javax.swing.table.DefaultTableModel(
@@ -55,9 +59,40 @@ public class PnlAnadir extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblLista);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 310, 310));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 310, 430));
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnadirActionPerformed
+        enviarTarea();
+        verTarea();
+    }//GEN-LAST:event_btnAnadirActionPerformed
+    
+    private void enviarTarea(){
+        new LogicaTarea().anadirTarea(txtTarea.getText(), false);
+    }
+    
+    //crear modelo de la tabla
+    DefaultTableModel model=new DefaultTableModel();
+    private void configurarTabla(){
+        //configurar encabezado
+        for (String enc : LogicaTarea.envEncabezado()) {
+            model.addColumn(enc);
+        }
+        
+        //asignar modelo
+        tblLista.setModel(model);
+        
+        //configurar otras partes
+        tblLista.getTableHeader().setReorderingAllowed(false);
+        tblLista.setSize(310, 490);
+    }
+    
+    private void verTarea(){
+        model.setRowCount(0); //limpiar tabla
+        for (ArrayList<String> fila : LogicaTarea.verTarea()) {
+            model.addRow(new String[]{"a","b","c","d"});
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAnadir;

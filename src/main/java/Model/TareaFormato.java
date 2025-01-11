@@ -27,7 +27,7 @@ public class TareaFormato {
 
     @Override
     public String toString() {
-        return tarea+" - "+(status?"completada":"pendiente");
+        return "tarea{"+tarea+"}, status{"+status+"}";
     }
     
 }

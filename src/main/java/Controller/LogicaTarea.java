@@ -3,40 +3,56 @@ package Controller;
 import View.Home;
 import Model.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class LogicaTarea {
     
     public static void main(String[] args) {
         //iniciar app Home
-        Home ventana=new Home();
-        ventana.setVisible(true);
-        ventana.setLocationRelativeTo(null);
+        configurarPantalla();
         
         //añadir tareas predefinidas
-        todoTareas.anadirTareaRep(new TareaFormato("pasear al perro", false));
-        todoTareas.anadirTareaRep(new TareaFormato("barrer la sala", false));
-        todoTareas.anadirTareaRep(new TareaFormato("tomar desayuno", true));
-        todoTareas.anadirTareaRep(new TareaFormato("comprar 5kg de carne", true));
-        todoTareas.anadirTareaRep(new TareaFormato("pedir una cita para el dentista", false));
+        new LogicaTarea().anadirTarea("pasear al perro", false);
+        new LogicaTarea().anadirTarea("barrer la sala", false);
+        new LogicaTarea().anadirTarea("tomar desayuno", true);
+        new LogicaTarea().anadirTarea("comprar 5kg de carne", true);
+        new LogicaTarea().anadirTarea("pedir una cita para el dentista", false);
         
     }
     
     //crear repositorio segun el modelo
     private static final RepositorioTarea todoTareas=new RepositorioTarea();
     
-    //añade un objeto TareaFormato, a partir de un String y un boolean, a todoTarea
-    public static void anadirTarea(String tarea, boolean stt){
-        TareaFormato nTarea=new TareaFormato(tarea, stt);
-        todoTareas.anadirTareaRep(nTarea);
+    //configurar JFrame
+    private static void configurarPantalla(){
+        Home ventana=new Home();
+        ventana.setVisible(true);
+        ventana.setLocationRelativeTo(null);
+        ventana.setSize(500, 600);
+        ventana.setTitle("Lista de Tareas Ahora...");
     }
     
-    public static ArrayList<String> actualizarVista(){
-        ArrayList<String> texto=new ArrayList<>();
-        for (int i = 0; i < todoTareas.listarTareaRep().size(); i++) {
-            String tarea=todoTareas.listarTareaRep().get(i).getTarea();
-            boolean status=todoTareas.listarTareaRep().get(i).isStatus();
-            texto.add(status?tarea+" - completada":tarea+" - pendiente");
-        }
-        return texto;
+    //añade una tarea al repositorio
+    public void anadirTarea(String tarea, boolean status){
+        todoTareas.anadirTareaRep(tarea, status);
     }
+    
+    //envia el encabezado de la tabla
+    public static List<String> envEncabezado(){
+        return List.of("Tarea","Status","chngStatus","borrar");
+    }
+    
+    //lectura de datos usando inicializacion anonima
+    public static ArrayList<ArrayList<String>> verTarea(){
+        ArrayList<ArrayList<String>> lista=new ArrayList<>();
+        for (TareaFormato tr : todoTareas.listarTareaRep()) {
+            if(tr.isStatus()){
+                lista.add(new ArrayList<String>(){{add(tr.getTarea());add("completado");}});
+            }else{
+                lista.add(new ArrayList<String>(){{add(tr.getTarea());add("pendiente");}});
+            }
+        }
+        return lista;
+    }
+    
 }

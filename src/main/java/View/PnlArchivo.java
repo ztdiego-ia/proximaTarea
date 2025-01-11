@@ -8,12 +8,12 @@ package View;
  *
  * @author Diego
  */
-public class PnlHistorial extends javax.swing.JPanel {
+public class PnlArchivo extends javax.swing.JPanel {
 
     /**
      * Creates new form PnlHistorial
      */
-    public PnlHistorial() {
+    public PnlArchivo() {
         initComponents();
     }
 
@@ -28,7 +28,7 @@ public class PnlHistorial extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btnBorrarTodo = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -47,13 +47,13 @@ public class PnlHistorial extends javax.swing.JPanel {
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 40, 310, 350));
 
-        jButton1.setText("borrar todo");
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, -1, -1));
+        btnBorrarTodo.setText("borrar todo");
+        add(btnBorrarTodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnBorrarTodo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables

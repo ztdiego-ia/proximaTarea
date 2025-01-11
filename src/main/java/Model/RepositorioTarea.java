@@ -3,16 +3,20 @@ package Model;
 import java.util.ArrayList;
 
 public class RepositorioTarea {
-    private ArrayList<TareaFormato> tareaRep;
-    private ArrayList<TareaFormato> tareaHistorial;
+    private final ArrayList<TareaFormato> tareaRep;
+    private final ArrayList<TareaFormato> tareaHistorial;
 
     public RepositorioTarea() {
         tareaRep=new ArrayList<>();
         tareaHistorial=new ArrayList<>();
     }
-    public void anadirTareaRep(TareaFormato tarea){
-        tareaRep.add(tarea);
+    public void anadirTareaRep(String tarea, boolean status){
+        tareaRep.add(new TareaFormato(tarea, status));
     }
+    public ArrayList<TareaFormato> listarTareaRep(){
+        return tareaRep;
+    }
+    //--------------------------------------------------------
     public void anadirTareaHistorial(TareaFormato tarea){
         tareaHistorial.add(tarea);
     }
@@ -23,9 +27,7 @@ public class RepositorioTarea {
     public void eliminarTareaHistorial(int i){
         tareaRep.clear();
     }
-    public ArrayList<TareaFormato> listarTareaRep(){
-        return tareaRep;
-    }
+    
     public ArrayList<TareaFormato> listarTareaHistorial(){
         return tareaHistorial;
     }

@@ -9,7 +9,7 @@ public class Home extends javax.swing.JFrame {
      */
     public Home() {
         initComponents();
-        verPanel(new PnlAnadir());
+        verPanel(new PnlPrincipal());
     }
     
     /**
@@ -21,7 +21,6 @@ public class Home extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jpTodo = new javax.swing.JPanel();
         lbTitulo = new javax.swing.JLabel();
         btnAnadir = new javax.swing.JButton();
         btnHistorial = new javax.swing.JButton();
@@ -32,11 +31,10 @@ public class Home extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jpTodo.setPreferredSize(new java.awt.Dimension(470, 518));
-
         lbTitulo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lbTitulo.setText("Proxima Tarea");
         lbTitulo.setName(""); // NOI18N
+        getContentPane().add(lbTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         btnAnadir.setText("Añadir");
         btnAnadir.addActionListener(new java.awt.event.ActionListener() {
@@ -44,6 +42,7 @@ public class Home extends javax.swing.JFrame {
                 btnAnadirActionPerformed(evt);
             }
         });
+        getContentPane().add(btnAnadir, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
 
         btnHistorial.setText("Historial");
         btnHistorial.addActionListener(new java.awt.event.ActionListener() {
@@ -51,10 +50,13 @@ public class Home extends javax.swing.JFrame {
                 btnHistorialActionPerformed(evt);
             }
         });
+        getContentPane().add(btnHistorial, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
 
         jLabel3.setText("→");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, -1, -1));
 
         jLabel5.setText("→");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, -1, -1));
 
         pnlContenido.setPreferredSize(new java.awt.Dimension(330, 400));
 
@@ -62,67 +64,25 @@ public class Home extends javax.swing.JFrame {
         pnlContenido.setLayout(pnlContenidoLayout);
         pnlContenidoLayout.setHorizontalGroup(
             pnlContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 330, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         pnlContenidoLayout.setVerticalGroup(
             pnlContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout jpTodoLayout = new javax.swing.GroupLayout(jpTodo);
-        jpTodo.setLayout(jpTodoLayout);
-        jpTodoLayout.setHorizontalGroup(
-            jpTodoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpTodoLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(jpTodoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpTodoLayout.createSequentialGroup()
-                        .addComponent(lbTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jpTodoLayout.createSequentialGroup()
-                        .addGroup(jpTodoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jpTodoLayout.createSequentialGroup()
-                                .addComponent(btnAnadir, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel3))
-                            .addGroup(jpTodoLayout.createSequentialGroup()
-                                .addComponent(btnHistorial)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel5)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pnlContenido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 26, Short.MAX_VALUE))))
-        );
-        jpTodoLayout.setVerticalGroup(
-            jpTodoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpTodoLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(lbTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jpTodoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpTodoLayout.createSequentialGroup()
-                        .addGroup(jpTodoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnAnadir)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jpTodoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnHistorial)
-                            .addComponent(jLabel5)))
-                    .addComponent(pnlContenido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(16, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(jpTodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 470, 520));
+        getContentPane().add(pnlContenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 370, 530));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
     private ArrayList<String> tareas=new ArrayList<>();
     
+    
     //metodo para ver los paneles
     private void verPanel(JPanel panel){
         //configurar panel
-        panel.setSize(330,400);
+        panel.setSize(370,530);
         panel.setLocation(0, 0);
         
         //configurar pnlContenido
@@ -131,23 +91,13 @@ public class Home extends javax.swing.JFrame {
         pnlContenido.validate();
         pnlContenido.repaint();
     }
-    public void actualizarVista(){
-        tareas=LogicaTarea.actualizarVista();
-        //txtVistaTarea.setText(null);
-        for (String t : tareas) {
-            //txtVistaTarea.append(t+"\n");
-        }
-    }
-    private void anadirT(){
-        
-    }
     
     private void btnAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnadirActionPerformed
-        verPanel(new PnlAnadir());
+        verPanel(new PnlPrincipal());
     }//GEN-LAST:event_btnAnadirActionPerformed
 
     private void btnHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialActionPerformed
-        verPanel(new PnlHistorial());
+        verPanel(new PnlArchivo());
     }//GEN-LAST:event_btnHistorialActionPerformed
            
     /**
@@ -160,7 +110,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JButton btnHistorial;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jpTodo;
     private javax.swing.JLabel lbTitulo;
     private javax.swing.JPanel pnlContenido;
     // End of variables declaration//GEN-END:variables
