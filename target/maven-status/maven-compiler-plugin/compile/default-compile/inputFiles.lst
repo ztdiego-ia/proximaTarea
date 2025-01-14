@@ -1,7 +1,9 @@
 D:\JavaProject\proximaTarea\src\main\java\View\PnlArchivo.java
+D:\JavaProject\proximaTarea\src\main\java\View\DlgEditar.java
 D:\JavaProject\proximaTarea\src\main\java\View\Home.java
 D:\JavaProject\proximaTarea\src\main\java\View\PnlPrincipal.java
 D:\JavaProject\proximaTarea\src\main\java\Model\RepositorioTarea.java
+D:\JavaProject\proximaTarea\src\main\java\Controller\GuardarTarea.java
 D:\JavaProject\proximaTarea\src\main\java\Controller\LogicaTarea.java
 D:\JavaProject\proximaTarea\src\main\java\Model\TareaFormato.java
 D:\JavaProject\proximaTarea\src\main\java\ConsoleVersion.java

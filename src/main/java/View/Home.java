@@ -1,6 +1,5 @@
 package View;
-import Controller.LogicaTarea;
-import java.util.ArrayList;
+
 import javax.swing.JPanel;
 public class Home extends javax.swing.JFrame {
 
@@ -9,7 +8,9 @@ public class Home extends javax.swing.JFrame {
      */
     public Home() {
         initComponents();
+        configurarPantalla();
         verPanel(new PnlPrincipal());
+        
     }
     
     /**
@@ -36,7 +37,7 @@ public class Home extends javax.swing.JFrame {
         lbTitulo.setName(""); // NOI18N
         getContentPane().add(lbTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        btnAnadir.setText("Añadir");
+        btnAnadir.setText("Tarea");
         btnAnadir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAnadirActionPerformed(evt);
@@ -44,7 +45,7 @@ public class Home extends javax.swing.JFrame {
         });
         getContentPane().add(btnAnadir, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
 
-        btnHistorial.setText("Historial");
+        btnHistorial.setText("Archivo");
         btnHistorial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHistorialActionPerformed(evt);
@@ -53,10 +54,10 @@ public class Home extends javax.swing.JFrame {
         getContentPane().add(btnHistorial, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
 
         jLabel3.setText("→");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, -1, -1));
 
         jLabel5.setText("→");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, -1, -1));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, -1, -1));
 
         pnlContenido.setPreferredSize(new java.awt.Dimension(330, 400));
 
@@ -64,32 +65,37 @@ public class Home extends javax.swing.JFrame {
         pnlContenido.setLayout(pnlContenidoLayout);
         pnlContenidoLayout.setHorizontalGroup(
             pnlContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 620, Short.MAX_VALUE)
         );
         pnlContenidoLayout.setVerticalGroup(
             pnlContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        getContentPane().add(pnlContenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 370, 530));
+        getContentPane().add(pnlContenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 620, 530));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    private ArrayList<String> tareas=new ArrayList<>();
-    
-    
+
+    //configurar ventana
+    private void configurarPantalla(){
+        setLocationRelativeTo(null);
+        setSize(750, 600);
+        setTitle("Lista de Tareas Ahora...");
+    }
+
     //metodo para ver los paneles
     private void verPanel(JPanel panel){
         //configurar panel
-        panel.setSize(370,530);
+        panel.setSize(620,530);
         panel.setLocation(0, 0);
-        
+
         //configurar pnlContenido
         pnlContenido.removeAll();
         pnlContenido.add(panel);
         pnlContenido.validate();
         pnlContenido.repaint();
+        
     }
     
     private void btnAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnadirActionPerformed

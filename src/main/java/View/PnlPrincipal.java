@@ -2,7 +2,10 @@
 package View;
 
 import Controller.LogicaTarea;
-import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 public class PnlPrincipal extends javax.swing.JPanel {
@@ -36,15 +39,15 @@ public class PnlPrincipal extends javax.swing.JPanel {
 
         jLabel1.setText("Nueva Tarea");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
-        add(txtTarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 260, -1));
+        add(txtTarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 400, -1));
 
-        btnAnadir.setText("...");
+        btnAnadir.setText("agregar");
         btnAnadir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAnadirActionPerformed(evt);
             }
         });
-        add(btnAnadir, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 30, -1));
+        add(btnAnadir, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 30, -1, -1));
 
         tblLista.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -57,22 +60,47 @@ public class PnlPrincipal extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblLista.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblListaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblLista);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 310, 430));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 600, 430));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnadirActionPerformed
-        enviarTarea();
-        verTarea();
+        if(verificar(txtTarea)){
+            enviarTarea();
+            verTarea();
+        }else{
+            txtTarea.setText(null);
+            //mensaje de campo vacio
+            JOptionPane.showMessageDialog(this, "Entrada no valida.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnAnadirActionPerformed
+
+    private void tblListaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListaMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblListaMouseClicked
     
+    //funcion para añadir tareas
     private void enviarTarea(){
         new LogicaTarea().anadirTarea(txtTarea.getText(), false);
+        txtTarea.setText(null);
     }
     
     //crear modelo de la tabla
-    DefaultTableModel model=new DefaultTableModel();
+    DefaultTableModel model=new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false; // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        }
+        
+    };
+    
+    //configura la tabla
     private void configurarTabla(){
         //configurar encabezado
         for (String enc : LogicaTarea.envEncabezado()) {
@@ -84,13 +112,24 @@ public class PnlPrincipal extends javax.swing.JPanel {
         
         //configurar otras partes
         tblLista.getTableHeader().setReorderingAllowed(false);
-        tblLista.setSize(310, 490);
+        tblLista.setSize(600, 430);
+        //confiurar ancho de columna
+        tblLista.getColumnModel().getColumn(0).setPreferredWidth(440);
+        tblLista.getColumnModel().getColumn(1).setPreferredWidth(100);
+        tblLista.getColumnModel().getColumn(2).setPreferredWidth(60);
     }
     
+    //verificar entrada de tareas
+    private boolean verificar(JTextField campo){
+        return !(campo.getText().isBlank());
+        
+    }
+    
+    //funcion para listar las tareas
     private void verTarea(){
         model.setRowCount(0); //limpiar tabla
-        for (ArrayList<String> fila : LogicaTarea.verTarea()) {
-            model.addRow(new String[]{"a","b","c","d"});
+        for (List<String> fila : LogicaTarea.verTarea()) {
+            model.addRow(new String[]{fila.get(0),fila.get(1),"¿editar?"});
         }
     }
 
