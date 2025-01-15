@@ -24,10 +24,5 @@ public class TareaFormato {
     public void setStatus(boolean status) {
         this.status = status;
     }
-
-    @Override
-    public String toString() {
-        return "tarea{"+tarea+"}, status{"+status+"}";
-    }
     
 }

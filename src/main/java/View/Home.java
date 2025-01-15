@@ -9,8 +9,8 @@ public class Home extends javax.swing.JFrame {
     public Home() {
         initComponents();
         configurarPantalla();
-        verPanel(new PnlPrincipal());
-        
+        verPanel(Principal);
+        DlgEditar.envPanel(Principal);
     }
     
     /**
@@ -76,7 +76,11 @@ public class Home extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    //variables auxiliares
+    private final PnlPrincipal Principal=new PnlPrincipal();
+    private final PnlArchivo Archivo=new PnlArchivo();
+    
     //configurar ventana
     private void configurarPantalla(){
         setLocationRelativeTo(null);
@@ -99,11 +103,11 @@ public class Home extends javax.swing.JFrame {
     }
     
     private void btnAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnadirActionPerformed
-        verPanel(new PnlPrincipal());
+        verPanel(Principal);
     }//GEN-LAST:event_btnAnadirActionPerformed
 
     private void btnHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialActionPerformed
-        verPanel(new PnlArchivo());
+        verPanel(Archivo);
     }//GEN-LAST:event_btnHistorialActionPerformed
            
     /**

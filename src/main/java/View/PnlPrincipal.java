@@ -2,10 +2,11 @@
 package View;
 
 import Controller.LogicaTarea;
-import java.util.List;
-import javax.swing.JDialog;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class PnlPrincipal extends javax.swing.JPanel {
@@ -82,20 +83,42 @@ public class PnlPrincipal extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAnadirActionPerformed
 
     private void tblListaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListaMouseClicked
-        // TODO add your handling code here:
+        filcol(evt);
     }//GEN-LAST:event_tblListaMouseClicked
     
+    //obtener fila y columna clickeada
+    private void filcol(java.awt.event.MouseEvent evt){
+        int fila=tblLista.rowAtPoint(evt.getPoint());
+        int columna=tblLista.columnAtPoint(evt.getPoint());
+        if(columna==2){
+            //enviar los datos al jdialogform
+            DlgEditar.envDato(LogicaTarea.verTarea().get(fila).get(0), LogicaTarea.verTarea().get(fila).get(1).equals("true"), fila);
+            //invocar la ventana de editar
+            DlgEditar ventEdit=new DlgEditar(ventHome, true);
+            ventEdit.setVisible(true);
+            
+        }
+    }
+    
+    //recibe el objeto Home y llena la variable del padre
+    public static void padre(Home componente){
+        ventHome=componente;
+    }
+    //variable del padre
+    private static Home ventHome;
+
     //funcion para añadir tareas
     private void enviarTarea(){
-        new LogicaTarea().anadirTarea(txtTarea.getText(), false);
+        LogicaTarea.anadirTarea(txtTarea.getText(), false);
         txtTarea.setText(null);
     }
     
     //crear modelo de la tabla
-    DefaultTableModel model=new DefaultTableModel(){
+    private final DefaultTableModel model=new DefaultTableModel(){
+        //para evitar que las celdas sean editables
         @Override
         public boolean isCellEditable(int row, int column) {
-            return false; // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+            return false;
         }
         
     };
@@ -107,16 +130,25 @@ public class PnlPrincipal extends javax.swing.JPanel {
             model.addColumn(enc);
         }
         
+        
         //asignar modelo
         tblLista.setModel(model);
         
         //configurar otras partes
         tblLista.getTableHeader().setReorderingAllowed(false);
         tblLista.setSize(600, 430);
-        //confiurar ancho de columna
-        tblLista.getColumnModel().getColumn(0).setPreferredWidth(440);
-        tblLista.getColumnModel().getColumn(1).setPreferredWidth(100);
+        //confiurar columna
+        tblLista.getColumnModel().getColumn(0).setPreferredWidth(460);
+        tblLista.getColumnModel().getColumn(1).setPreferredWidth(80);
         tblLista.getColumnModel().getColumn(2).setPreferredWidth(60);
+        tblLista.getColumnModel().getColumn(0).setResizable(false);
+        tblLista.getColumnModel().getColumn(1).setResizable(false);
+        tblLista.getColumnModel().getColumn(2).setResizable(false);
+        //centrar columnas
+        DefaultTableCellRenderer centrado=new DefaultTableCellRenderer();
+        centrado.setHorizontalAlignment(SwingConstants.CENTER);
+        tblLista.getColumnModel().getColumn(1).setCellRenderer(centrado);
+        tblLista.getColumnModel().getColumn(2).setCellRenderer(centrado);
     }
     
     //verificar entrada de tareas
@@ -126,13 +158,13 @@ public class PnlPrincipal extends javax.swing.JPanel {
     }
     
     //funcion para listar las tareas
-    private void verTarea(){
+    public void verTarea(){
         model.setRowCount(0); //limpiar tabla
-        for (List<String> fila : LogicaTarea.verTarea()) {
-            model.addRow(new String[]{fila.get(0),fila.get(1),"¿editar?"});
+        for (ArrayList<String> fila : LogicaTarea.verTarea()) {
+            model.addRow(new String[]{fila.get(0), fila.get(1).equals("true")?"¡Listo!":"Aun no...", "¿editar?"});
         }
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAnadir;
     private javax.swing.JLabel jLabel1;
