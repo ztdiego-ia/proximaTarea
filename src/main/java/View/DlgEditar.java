@@ -53,6 +53,11 @@ public class DlgEditar extends javax.swing.JDialog {
         getContentPane().add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 30, -1, -1));
 
         jButton2.setText("borrar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, -1, -1));
 
         btnChngStatus.setText("completado");
@@ -73,6 +78,17 @@ public class DlgEditar extends javax.swing.JDialog {
     private void btnChngStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChngStatusActionPerformed
         chngStatus();
     }//GEN-LAST:event_btnChngStatusActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        brrTarea();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    //borrar una tarea
+    private void brrTarea(){
+        LogicaTarea.brrTarea(indice);
+        this.dispose(); //cerrar jdialogform
+        panelPri.verTarea();
+    }
 
     //cambiar status de tarea
     private void chngStatus(){

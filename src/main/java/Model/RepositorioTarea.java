@@ -20,4 +20,7 @@ public class RepositorioTarea {
     public void edtStt(boolean stt, int i){
         tareaRep.get(i).setStatus(stt);
     }
+    public void brrTarea(int i){
+        tareaRep.remove(i);
+    }
 }

@@ -66,4 +66,9 @@ public class LogicaTarea {
         }
     }
     
+    //borrar una entrada del repositorio
+    public static void brrTarea(int i){
+        registroTarea.brrTarea(i);
+    }
+    
 }
