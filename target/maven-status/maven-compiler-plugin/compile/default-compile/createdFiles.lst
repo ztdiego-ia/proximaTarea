@@ -9,9 +9,11 @@ View\PnlPrincipal.class
 View\DlgEditar$1.class
 Model\RepositorioTarea.class
 View\Home.class
+View\PnlArchivo$2.class
 Model\TareaFormato.class
 View\DlgEditar.class
 View\DlgEditar$3.class
 Controller\LogicaTarea$1.class
 View\Home$2.class
 View\PnlArchivo.class
+View\PnlArchivo$1.class

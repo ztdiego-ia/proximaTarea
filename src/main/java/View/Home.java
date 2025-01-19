@@ -43,7 +43,7 @@ public class Home extends javax.swing.JFrame {
                 btnAnadirActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAnadir, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
+        getContentPane().add(btnAnadir, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 70, -1));
 
         btnHistorial.setText("Archivo");
         btnHistorial.addActionListener(new java.awt.event.ActionListener() {

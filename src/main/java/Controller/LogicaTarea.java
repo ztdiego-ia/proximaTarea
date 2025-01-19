@@ -2,8 +2,19 @@ package Controller;
 
 import View.Home;
 import Model.*;
-import View.PnlPrincipal;
+import View.*;
+import java.io.File;
 import java.util.ArrayList;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import javax.swing.JOptionPane;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 
 public class LogicaTarea {
     
@@ -15,8 +26,16 @@ public class LogicaTarea {
         LogicaTarea.anadirTarea("comprar 5kg de carne", true);
         LogicaTarea.anadirTarea("pedir una cita para el dentista", false);
         
+        PnlArchivo.envDatos(ruta, nmbrArchivo);
+
         //iniciar app Home
         iniciarPantalla();
+        
+        String rutaInicial=System.getProperty("user.dir");
+        Path rutaAbsoluta = Paths.get(rutaInicial, "\\src\\main\\java\\Save\\", "registroDeTareas.csv");
+        File carpeta = rutaAbsoluta.getParent().toFile();
+        System.out.println(carpeta.exists());
+        System.out.println(rutaInicial);
     }
     
     //crear repositorio segun el modelo
@@ -54,6 +73,7 @@ public class LogicaTarea {
                 add(String.valueOf(tr.isStatus()));
             }});
         }
+        guardarRegistro();
         return lista;
     }
     
@@ -71,4 +91,66 @@ public class LogicaTarea {
         registroTarea.brrTarea(i);
     }
     
+    //ruta de guardado
+    private static String rutaBase=System.getProperty("user.dir");
+    private static String ruta="..\\Save\\";
+    public static String getRuta() {
+        return ruta;
+    }
+    public static void setRuta(String ruta) {
+        LogicaTarea.ruta = ruta;
+    }
+    //nombre de archivo
+    private static String nmbrArchivo="registroDeTareas";
+    public static String getNmbrArchivo() {
+        return nmbrArchivo;
+    }
+    public static void setNmbrArchivo(String nmbrArchivo) {
+        LogicaTarea.nmbrArchivo = nmbrArchivo;
+    }
+
+    //guardar registros en un json
+    private static void guardarRegistro(){
+        JSONArray arrayJson=new JSONArray();
+        for (TareaFormato tr : registroTarea.listarTareaRep()) {
+            JSONObject rgsJson=new JSONObject(); //crear el jsonobject dentro del for para que iteracion de un objeto independiente
+            rgsJson.put("tarea", tr.getTarea());
+            rgsJson.put("status", tr.isStatus());
+            arrayJson.add(rgsJson);
+        }
+        try(FileWriter escribir=new FileWriter(rutaBase+"\\src\\main\\java\\Save\\"+"texto.json");){
+            escribir.write(arrayJson.toJSONString()+"\n");
+        }catch(IOException ex){
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+    //exportar en un .txt, .pdf o .csv
+    public static void exportarArchivo(int opc){
+        switch(opc){
+            case 1->expTxt();
+            case 2->expPdf();
+            case 3->expCsv();
+            default->System.out.println("opcion invalida");
+        }
+    }
+    
+    private static void expTxt(){
+        
+    }
+    private static void expPdf(){
+        
+    }
+    private static void expCsv(){
+        try(FileWriter escribir=new FileWriter(ruta+nmbrArchivo+".csv");
+            CSVPrinter escrCsv=new CSVPrinter(escribir, CSVFormat.DEFAULT.withHeader("Tarea","Status"))){
+            
+            for (TareaFormato tr : registroTarea.listarTareaRep()) {
+                escrCsv.printRecord(tr.getTarea(), tr.isStatus());
+            }
+            JOptionPane.showMessageDialog(null, "Archivo guardado con exito", "Informe", JOptionPane.INFORMATION_MESSAGE);
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
 }
