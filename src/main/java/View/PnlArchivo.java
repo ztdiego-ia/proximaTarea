@@ -3,7 +3,10 @@ package View;
 
 import Controller.LogicaTarea;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.filechooser.FileSystemView;
 
 public class PnlArchivo extends javax.swing.JPanel {
 
@@ -21,6 +24,7 @@ public class PnlArchivo extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         lblRuta = new javax.swing.JLabel();
+        btnCambiarRuta = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -46,7 +50,15 @@ public class PnlArchivo extends javax.swing.JPanel {
         lblRuta.setText("ruta");
         jPanel1.add(lblRuta, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, -1, -1));
 
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 600, 80));
+        btnCambiarRuta.setText("cambiar");
+        btnCambiarRuta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCambiarRutaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnCambiarRuta, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
+
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 600, 110));
 
         jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(51, 51, 51), 1, true));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -65,7 +77,7 @@ public class PnlArchivo extends javax.swing.JPanel {
         });
         jPanel2.add(cmbOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, -1, -1));
 
-        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 600, 160));
+        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 600, 160));
 
         jPanel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(51, 51, 51), 1, true));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -80,7 +92,7 @@ public class PnlArchivo extends javax.swing.JPanel {
         lblExtension.setText(".extension");
         jPanel3.add(lblExtension, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 40, -1, -1));
 
-        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 600, 80));
+        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 600, 80));
 
         jButton1.setText("exportar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -88,7 +100,7 @@ public class PnlArchivo extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, -1, -1));
+        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmbOpcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbOpcionesActionPerformed
@@ -98,6 +110,10 @@ public class PnlArchivo extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         exportar();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnCambiarRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarRutaActionPerformed
+        ventanaCambiarRuta();
+    }//GEN-LAST:event_btnCambiarRutaActionPerformed
 
     private void exportar(){
         if(cmbOpciones.getSelectedIndex()!=0){
@@ -122,7 +138,7 @@ public class PnlArchivo extends javax.swing.JPanel {
     
     private static String ruta="";
     private static String nombre="";
-    
+     
     private void confTodo(){
         lblRuta.setText(ruta);
         txtNombre.setText(nombre);
@@ -135,8 +151,37 @@ public class PnlArchivo extends javax.swing.JPanel {
         model.addElement(".csv");
         cmbOpciones.setModel(model);
     }
+    
+    private void ventanaCambiarRuta(){
+        //crear la ventana jfilechooser
+        JFileChooser selecCarpeta=new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+        //configurar para seleccionar carpetas
+        selecCarpeta.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        //configurar texto del boton
+        UIManager.put("FileChooser.openDialogTitleText", "seleccionar-carpeta");
+        UIManager.put("FileChooser.openButtonText", "seleccionar carpeta");
+        
+        //
+        int respuesta=selecCarpeta.showOpenDialog(this);
+        
+        if(respuesta==JFileChooser.APPROVE_OPTION){
+            String rutaElegida=selecCarpeta.getSelectedFile().getAbsolutePath();
+            actRuta(rutaElegida);
+        }
+        
+    }
+    
+    private void actRuta(String paramRuta){
+        ruta=paramRuta;
+        
+        lblRuta.setText(null);
+        lblRuta.setText(paramRuta);
+        
+        LogicaTarea.setRuta(paramRuta);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCambiarRuta;
     private javax.swing.JComboBox<String> cmbOpciones;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

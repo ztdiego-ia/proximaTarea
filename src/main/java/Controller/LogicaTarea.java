@@ -19,6 +19,9 @@ import org.json.simple.parser.ParseException;
 public class LogicaTarea {
     
     public static void main(String[] args) {
+        //leer ruta en json
+        leerRuta();
+
         //datos para PnlArchivo
         PnlArchivo.envDatos(ruta, nmbrArchivo);
         
@@ -84,15 +87,16 @@ public class LogicaTarea {
     
     //ruta de guardado
     private static final String rutaBase=System.getProperty("user.dir");
-    private static String ruta="/src/main/java/Save/";
+    private static String ruta="\\src\\main\\java\\Save\\";
     public static String getRuta() {
         return ruta;
     }
     public static void setRuta(String ruta) {
         LogicaTarea.ruta = ruta;
+        guardarRuta();
     }
     //nombre de archivo
-    private static String nmbrArchivo="registroDeTareas";
+    private static String nmbrArchivo="";
     public static String getNmbrArchivo() {
         return nmbrArchivo;
     }
@@ -109,7 +113,7 @@ public class LogicaTarea {
             rgsJson.put("status", tr.isStatus());
             arrayJson.add(rgsJson);
         }
-        try(FileWriter escribir=new FileWriter(rutaBase+"/src/main/java/Save/"+"regiData.json");){
+        try(FileWriter escribir=new FileWriter(rutaBase+"\\src\\main\\java\\Save\\"+"regiData.json");){
             escribir.write(arrayJson.toJSONString());
         }catch(IOException ex){
             System.out.println(ex.getMessage());
@@ -119,12 +123,34 @@ public class LogicaTarea {
     //leer json
     private static void leerJson(){
         JSONParser parser=new JSONParser();
-        try(FileReader leer=new FileReader(rutaBase+"/src/main/java/Save/"+"regiData.json")){
+        try(FileReader leer=new FileReader(rutaBase+"\\src\\main\\java\\Save\\"+"regiData.json")){
             JSONArray arrayJson=(JSONArray)parser.parse(leer);
             for (Object obj:arrayJson) {//la clase object es la madre de todas las clases
                 JSONObject objJson=(JSONObject)obj;
                 registroTarea.anadirTareaRep((String)objJson.get("tarea"), (boolean)objJson.get("status"));
             }
+        }catch(IOException | ParseException ex){
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+    //guargar json de ruta
+    private static void guardarRuta(){
+        JSONObject objtJson=new JSONObject();
+        objtJson.put("ruta", ruta);
+        try(FileWriter escribir=new FileWriter(rutaBase+"\\src\\main\\java\\Save\\"+"regiRuta.json")){
+            escribir.write(objtJson.toJSONString());
+        }catch(IOException ex){
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+    //leer json de ruta
+    private static void leerRuta(){
+        JSONParser parser=new JSONParser();
+        try(FileReader leer=new FileReader(rutaBase+"\\src\\main\\java\\Save\\"+"regiRuta.json")){
+            JSONObject objJson=(JSONObject)parser.parse(leer);
+            ruta=(String)objJson.get("ruta");
         }catch(IOException | ParseException ex){
             System.out.println(ex.getMessage());
         }

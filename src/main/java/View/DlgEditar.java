@@ -5,6 +5,7 @@
 package View;
 
 import Controller.LogicaTarea;
+import javax.swing.JOptionPane;
 
 public class DlgEditar extends javax.swing.JDialog {
 
@@ -72,7 +73,11 @@ public class DlgEditar extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        actDatos(1);
+        if(txtNvTarea.getText().isBlank()){
+            JOptionPane.showMessageDialog(this, "campo vario", "Error", JOptionPane.ERROR_MESSAGE);
+        }else{
+            actDatos(1);
+        }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnChngStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChngStatusActionPerformed
