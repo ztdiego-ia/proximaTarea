@@ -34,7 +34,7 @@ public class PnlArchivo extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         lblExtension = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnExportar = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -94,22 +94,26 @@ public class PnlArchivo extends javax.swing.JPanel {
 
         add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 600, 80));
 
-        jButton1.setText("exportar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnExportar.setText("exportar");
+        btnExportar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnExportarActionPerformed(evt);
             }
         });
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, -1, -1));
+        add(btnExportar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmbOpcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbOpcionesActionPerformed
         itemSelec();
     }//GEN-LAST:event_cmbOpcionesActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        exportar();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
+        if(txtNombre.getText().isBlank()){
+            JOptionPane.showMessageDialog(this, "campo vacio", "Error", JOptionPane.ERROR_MESSAGE);
+        }else{
+            exportar();
+        }
+    }//GEN-LAST:event_btnExportarActionPerformed
 
     private void btnCambiarRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarRutaActionPerformed
         ventanaCambiarRuta();
@@ -117,7 +121,7 @@ public class PnlArchivo extends javax.swing.JPanel {
 
     private void exportar(){
         if(cmbOpciones.getSelectedIndex()!=0){
-            LogicaTarea.exportarArchivo(cmbOpciones.getSelectedIndex());
+            LogicaTarea.exportarArchivo(cmbOpciones.getSelectedIndex(), txtNombre.getText());
         }else{
             JOptionPane.showMessageDialog(this, "Extension invalida", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -131,17 +135,14 @@ public class PnlArchivo extends javax.swing.JPanel {
         }
     }
     
-    public static void envDatos(String rt, String nmbr){
+    public static void envDatos(String rt){
         ruta=rt;
-        nombre=nmbr;
     }
     
     private static String ruta="";
-    private static String nombre="";
      
     private void confTodo(){
         lblRuta.setText(ruta);
-        txtNombre.setText(nombre);
         lblExtension.setText(null);
         
         final DefaultComboBoxModel<String> model=new DefaultComboBoxModel<>();
@@ -165,7 +166,7 @@ public class PnlArchivo extends javax.swing.JPanel {
         int respuesta=selecCarpeta.showOpenDialog(this);
         
         if(respuesta==JFileChooser.APPROVE_OPTION){
-            String rutaElegida=selecCarpeta.getSelectedFile().getAbsolutePath();
+            String rutaElegida=selecCarpeta.getSelectedFile().getAbsolutePath()+"\\";
             actRuta(rutaElegida);
         }
         
@@ -182,8 +183,8 @@ public class PnlArchivo extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCambiarRuta;
+    private javax.swing.JButton btnExportar;
     private javax.swing.JComboBox<String> cmbOpciones;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

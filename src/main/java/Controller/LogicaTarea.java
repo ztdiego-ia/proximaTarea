@@ -3,12 +3,18 @@ package Controller;
 import View.Home;
 import Model.*;
 import View.*;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.property.TextAlignment;
 import java.util.ArrayList;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.BufferedWriter;
 import javax.swing.JOptionPane;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -23,7 +29,7 @@ public class LogicaTarea {
         leerRuta();
 
         //datos para PnlArchivo
-        PnlArchivo.envDatos(ruta, nmbrArchivo);
+        PnlArchivo.envDatos(ruta);
         
         //leer los datos guardados
         leerJson();
@@ -87,7 +93,7 @@ public class LogicaTarea {
     
     //ruta de guardado
     private static final String rutaBase=System.getProperty("user.dir");
-    private static String ruta="\\src\\main\\java\\Save\\";
+    private static String ruta="";
     public static String getRuta() {
         return ruta;
     }
@@ -95,14 +101,7 @@ public class LogicaTarea {
         LogicaTarea.ruta = ruta;
         guardarRuta();
     }
-    //nombre de archivo
-    private static String nmbrArchivo="";
-    public static String getNmbrArchivo() {
-        return nmbrArchivo;
-    }
-    public static void setNmbrArchivo(String nmbrArchivo) {
-        LogicaTarea.nmbrArchivo = nmbrArchivo;
-    }
+
 
     //guardar registros en un json
     private static void guardarRegistro(){
@@ -157,25 +156,57 @@ public class LogicaTarea {
     }
     
     //exportar en un .txt, .pdf o .csv
-    public static void exportarArchivo(int opc){
+    public static void exportarArchivo(int opc, String nombre){
         switch(opc){
-            case 1->expTxt();
-            case 2->expPdf();
-            case 3->expCsv();
+            case 1->expTxt(nombre);
+            case 2->expPdf(nombre);
+            case 3->expCsv(nombre);
             default->System.out.println("opcion invalida");
         }
     }
     
-    private static void expTxt(){
-        
+    private static void expTxt(String nombre){
+        try(BufferedWriter escribir=new BufferedWriter(new FileWriter(ruta+nombre+".txt"))){
+            for (TareaFormato tr : registroTarea.listarTareaRep()) {
+                escribir.write(tr.getTarea());
+                if(tr.isStatus()){
+                    escribir.write("completado");
+                }else{
+                    escribir.write("pendiente");
+                }
+                escribir.write("\n");
+            }
+        }catch(IOException ex){
+            System.out.println(ex.getMessage());
+        }
     }
-    private static void expPdf(){
-        
-    }
-    private static void expCsv(){
-        try(FileWriter escribir=new FileWriter(ruta+nmbrArchivo+".csv");
-            CSVPrinter escrCsv=new CSVPrinter(escribir, CSVFormat.DEFAULT.withHeader("Tarea","Status"))){
+    private static void expPdf(String nombre){
+        try(//crear escritorio pdf
+            PdfWriter pdf=new PdfWriter(ruta+nombre+".pdf");
+            //crear documento pdf
+            Document docPdf=new Document(new PdfDocument(pdf))){
             
+            //añadir titulo
+            tituloPdf(docPdf);
+            //agregar tareas al pdf
+            for (TareaFormato tr : registroTarea.listarTareaRep()) {
+                Paragraph parrafo=new Paragraph()
+                        .add("Tarea: "+tr.getTarea()+"\n")
+                        .add("Estado: "+(tr.isStatus()?"Completado":"Pendiente"))
+                        .setFontSize(12)
+                        .setMarginTop(4)
+                        .setMarginBottom(4);
+                docPdf.add(parrafo);
+            }
+            //añadir final
+            finalPdf(docPdf);
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
+    }
+    private static void expCsv(String nombre){
+        try(FileWriter escribir=new FileWriter(ruta+nombre+".csv");
+            CSVPrinter escrCsv=new CSVPrinter(escribir, CSVFormat.DEFAULT.withHeader("Tarea","Status"))){
             for (TareaFormato tr : registroTarea.listarTareaRep()) {
                 escrCsv.printRecord(tr.getTarea(), tr.isStatus());
             }
@@ -183,5 +214,20 @@ public class LogicaTarea {
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
+    }
+    
+    private static void tituloPdf(Document docpdf){
+        Paragraph titulo=new Paragraph("Lista de Tareas")
+                .setTextAlignment(TextAlignment.CENTER)
+                .setFontSize(14);
+        docpdf.add(titulo);
+        docpdf.add(new Paragraph("\n"));
+    }
+    private static void finalPdf(Document docpdf){
+        Paragraph finalpdf=new Paragraph("\nby Lista de Tareas Ahora")
+                .setTextAlignment(TextAlignment.RIGHT)
+                .setFontSize(10)
+                .setItalic();
+        docpdf.add(finalpdf);
     }
 }
