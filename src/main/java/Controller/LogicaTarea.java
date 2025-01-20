@@ -3,39 +3,30 @@ package Controller;
 import View.Home;
 import Model.*;
 import View.*;
-import java.io.File;
 import java.util.ArrayList;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import java.io.FileWriter;
+import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import javax.swing.JOptionPane;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 
 public class LogicaTarea {
     
     public static void main(String[] args) {
-        //añadir tareas predefinidas
-        LogicaTarea.anadirTarea("pasear al perro", false);
-        LogicaTarea.anadirTarea("barrer la sala", false);
-        LogicaTarea.anadirTarea("tomar desayuno", true);
-        LogicaTarea.anadirTarea("comprar 5kg de carne", true);
-        LogicaTarea.anadirTarea("pedir una cita para el dentista", false);
-        
+        //datos para PnlArchivo
         PnlArchivo.envDatos(ruta, nmbrArchivo);
+        
+        //leer los datos guardados
+        leerJson();
 
         //iniciar app Home
         iniciarPantalla();
-        
-        String rutaInicial=System.getProperty("user.dir");
-        Path rutaAbsoluta = Paths.get(rutaInicial, "\\src\\main\\java\\Save\\", "registroDeTareas.csv");
-        File carpeta = rutaAbsoluta.getParent().toFile();
-        System.out.println(carpeta.exists());
-        System.out.println(rutaInicial);
     }
     
     //crear repositorio segun el modelo
@@ -92,8 +83,8 @@ public class LogicaTarea {
     }
     
     //ruta de guardado
-    private static String rutaBase=System.getProperty("user.dir");
-    private static String ruta="..\\Save\\";
+    private static final String rutaBase=System.getProperty("user.dir");
+    private static String ruta="/src/main/java/Save/";
     public static String getRuta() {
         return ruta;
     }
@@ -118,9 +109,23 @@ public class LogicaTarea {
             rgsJson.put("status", tr.isStatus());
             arrayJson.add(rgsJson);
         }
-        try(FileWriter escribir=new FileWriter(rutaBase+"\\src\\main\\java\\Save\\"+"texto.json");){
-            escribir.write(arrayJson.toJSONString()+"\n");
+        try(FileWriter escribir=new FileWriter(rutaBase+"/src/main/java/Save/"+"regiData.json");){
+            escribir.write(arrayJson.toJSONString());
         }catch(IOException ex){
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+    //leer json
+    private static void leerJson(){
+        JSONParser parser=new JSONParser();
+        try(FileReader leer=new FileReader(rutaBase+"/src/main/java/Save/"+"regiData.json")){
+            JSONArray arrayJson=(JSONArray)parser.parse(leer);
+            for (Object obj:arrayJson) {//la clase object es la madre de todas las clases
+                JSONObject objJson=(JSONObject)obj;
+                registroTarea.anadirTareaRep((String)objJson.get("tarea"), (boolean)objJson.get("status"));
+            }
+        }catch(IOException | ParseException ex){
             System.out.println(ex.getMessage());
         }
     }
